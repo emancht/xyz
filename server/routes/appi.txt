@@ -1,0 +1,42 @@
+import express from 'express';
+import * as BlogController from '../app/controllers/blogController.js';
+import * as UserController from '../app/controllers/userController.js';
+import AuthMiddleware from '../app/middlewares/authMiddleware.js';
+
+
+const router = express.Router();
+
+/// USER
+router.post('/register', UserController.Register);
+router.post('/login', UserController.Login);
+router.get('/logOut', AuthMiddleware, UserController.LogOut);
+
+
+
+/// BLOG
+router.post('/create-blog', AuthMiddleware, BlogController.createBlog);
+router.post('/update-blog', AuthMiddleware, BlogController.createBlog);
+router.get('/read-blog/:id', AuthMiddleware, BlogController.readBlog);
+router.get('/delete-blog/:id', AuthMiddleware, BlogController.readBlog);
+
+// /// TEAM
+// router.post('/create-blog', AuthMiddleware, BlogController.createBlog);
+// router.post('/update-blog', AuthMiddleware, BlogController.createBlog);
+// router.get('/read-blog/:id', AuthMiddleware, BlogController.readBlog);
+// router.get('/delete-blog/:id', AuthMiddleware, BlogController.readBlog);
+//
+// /// SERVICES
+// router.post('/create-blog', AuthMiddleware, BlogController.createBlog);
+// router.post('/update-blog', AuthMiddleware, BlogController.createBlog);
+// router.get('/read-blog/:id', AuthMiddleware, BlogController.readBlog);
+// router.get('/delete-blog/:id', AuthMiddleware, BlogController.readBlog);
+
+
+
+
+router.get('/blog-list', BlogController.blogList);
+
+// /// COMMENT
+// router.post('/createComment', CommentController.createComment);
+
+export default router;
