@@ -1,5 +1,5 @@
 export const PORT = 3003;
-export const DATABASE = 'mongodb://localhost:27017/BlogApp';
+export const DATABASE = 'mongodb+srv://chakmamon:junoPohr6@cluster0.y2sev.mongodb.net/BlogAgency';
 export const JWT_KEY = 'ABC12341241234';
 export const JWT_EXPIRE_TIME = '24h';
 
