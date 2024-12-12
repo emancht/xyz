@@ -7,7 +7,6 @@ export default defineConfig({
    proxy:{
     "/api/":{
       target: "https://xyz-nu-six.vercel.app"
-      // target: "http://localhost:3003"
     }
   }
 })
