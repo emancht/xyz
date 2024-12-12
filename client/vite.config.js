@@ -1,16 +1,16 @@
-
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    // server: {
-        // port: 3002,
-        proxy: {
-            '/api/': {
-                target: 'https://xyz-nu-six.vercel.app/',
-            },
-        },
-    // },
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api/': {
+        target: "https://xyz-nu-six.vercel.app",
+        changeOrigin: true, // Optional: Helps handle CORS issues
+        rewrite: (path) => path.replace(/^\/api/, '') // Optional: Removes '/api' prefix from proxied requests
+      },
+    },
+  },
 });
