@@ -5,12 +5,12 @@ import { defineConfig } from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [react()],
-    server: {
+    // server: {
         // port: 3002,
         proxy: {
             '/api/': {
                 target: 'https://xyz-nu-six.vercel.app/',
             },
         },
-    },
+    // },
 });
