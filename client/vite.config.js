@@ -9,7 +9,7 @@ export default defineConfig({
         // port: 3002,
         proxy: {
             '/api/': {
-                target: 'https://xyz-nu-six.vercel.app',
+                target: 'https://xyz-nu-six.vercel.app/api',
             },
         },
     },
