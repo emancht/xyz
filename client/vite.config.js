@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
    proxy:{
     "/api/":{
-      target: "https://xyz-nu-six.vercel.app"
+      target: "https://xyz-nu-six.vercel.app/api"
     }
   }
 })
