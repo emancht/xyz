@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import axios from "axios";
 
+
+const URL = "https://xyz-nu-six.vercel.app/api/";
+
 const BlogStore = create((set) => ({
     BlogList: [],
     BlogDetails: null,
@@ -8,7 +11,7 @@ const BlogStore = create((set) => ({
     // Fetch all blogs
     BlogListRequest: async () => {
         try {
-            const res = await axios.get("/api/BlogList");
+            const res = await axios.get(`${URL}BlogList`);
             if (res.data.status === "success") {
                 set({ BlogList: res.data.data });
             }
@@ -20,7 +23,7 @@ const BlogStore = create((set) => ({
     // Read specific blog details
     ReadBlogRequest: async (id) => {
         try {
-            const res = await axios.get(`/api/ReadBlog/${id}`);
+            const res = await axios.get(`${URL}ReadBlog/${id}`);
             if (res.data.status === "success") {
                 set({ BlogDetails: res.data.data });
                 return res.data.data; // Return blog details
@@ -34,7 +37,7 @@ const BlogStore = create((set) => ({
     // Create a new blog
     CreateBlogRequest: async (formData) => {
         try {
-            const res = await axios.post(`/api/CreateBlog`, formData, {
+            const res = await axios.post(`${URL}CreateBlog`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -51,7 +54,7 @@ const BlogStore = create((set) => ({
     // Edit a blog
     EditPostRequest: async (blogID, formData) => {
         try {
-            const res = await axios.post(`/api/UpdateBlog/${blogID}`, formData, {
+            const res = await axios.post(`${URL}UpdateBlog/${blogID}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -74,7 +77,7 @@ const BlogStore = create((set) => ({
     // Delete a blog
     DeletePostRequest: async (blogID) => {
         try {
-            const res = await axios.get(`/api/DeleteBlog/${blogID}`);
+            const res = await axios.get(`${URL}DeleteBlog/${blogID}`);
             if (res.data.status === "success") {
                 set((state) => ({
                     BlogList: state.BlogList.filter((blog) => blog._id !== blogID),

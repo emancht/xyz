@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 
+const URL = "https://xyz-nu-six.vercel.app/api/";
+
 const ServiceStore = create((set) => ({
     ServiceList: [],
     ServiceDetails: null,
@@ -8,7 +10,7 @@ const ServiceStore = create((set) => ({
     // Fetch all services
     ServiceListRequest: async () => {
         try {
-            const res = await axios.get("/api/ServiceList");
+            const res = await axios.get(`${URL}ServiceList`);
             if (res.data.status === 'success') {
                 set({ ServiceList: res.data.data });
             }
@@ -20,7 +22,7 @@ const ServiceStore = create((set) => ({
     // Read specific service details
     ReadServiceRequest: async (id) => {
         try {
-            const res = await axios.get(`/api/ReadService/${id}`);
+            const res = await axios.get(`${URL}ReadService/${id}`);
             if (res.data.status === 'success') {
                 set({ ServiceDetails: res.data.data });
                 return res.data.data; // Return service details
@@ -34,7 +36,7 @@ const ServiceStore = create((set) => ({
     // Create a new service
     CreateServiceRequest: async (formData) => {
         try {
-            const res = await axios.post(`/api/CreateService`, formData, {
+            const res = await axios.post(`${URL}CreateService`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -52,7 +54,7 @@ const ServiceStore = create((set) => ({
     // Delete a service
     DeleteServiceRequest: async (serviceID) => {
         try {
-            const res = await axios.get(`/api/DeleteService/${serviceID}`);
+            const res = await axios.get(`${URL}${serviceID}`);
             if (res.data.status === 'success') {
                 set((state) => ({
                     ServiceList: state.ServiceList.filter((service) => service._id !== serviceID),

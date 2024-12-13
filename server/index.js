@@ -4,26 +4,27 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import mongoose from "mongoose";
-import path from "path";
-import { fileURLToPath } from "url";
 
 import {
+    PORT,
+    DATABASE,
     MAX_JSON_SIZE,
     REQUEST_NUMBER,
     REQUEST_TIME,
     URL_ENCODE,
     WEB_CACHE,
+    FRONTEND_URL,
 } from "./app/config/config.js";
 import router from "./routes/api.js";
 
-/// Resolve __dirname for ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
 /// App Use Default Middleware
-app.use(cors());
+app.use(cors({
+    origin: FRONTEND_URL,  // Allow the frontend URL (Vercel or localhost)
+    credentials: true,
+}));
 app.use(express.json({ limit: MAX_JSON_SIZE }));
 app.use(express.urlencoded({ extended: URL_ENCODE }));
 app.use(helmet());
@@ -37,7 +38,6 @@ app.use(limiter);
 app.set("etag", WEB_CACHE);
 
 /// Database Connect
-const DATABASE = "mongodb+srv://emancht:4150@bookshop.nlent.mongodb.net/BlogAgency?retryWrites=true&w=majority&appName=BookShop";
 mongoose
     .connect(DATABASE, { autoIndex: true })
     .then(() => {
@@ -51,13 +51,12 @@ mongoose
 app.use("/api", router);
 
 /// Serve Frontend
-app.use(express.static("client/dist"));
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
-});
+/// app.use(express.static("client/dist"));
+/// app.get("*", (req, res) => {
+///     res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+/// });
 
 /// Start Server
-
-app.listen(5030, () => {
-    console.log("Server started on port: 5030");
+app.listen(PORT, () => {
+    console.log(`Server started on http://localhost:${PORT}`);
 });

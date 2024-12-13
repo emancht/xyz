@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import axios from "axios";
 
+
+const URL = "https://xyz-nu-six.vercel.app/api/";
+
 const TeamStore = create((set) => ({
     TeamList: [],
     TeamDetails: null,
@@ -8,7 +11,7 @@ const TeamStore = create((set) => ({
     // Fetch all team members
     TeamListRequest: async () => {
         try {
-            const res = await axios.get("/api/MemberList");
+            const res = await axios.get(`${URL}MemberList`);
             if (res.data.status === "success") {
                 set({ TeamList: res.data.data });
             }
@@ -21,7 +24,7 @@ const TeamStore = create((set) => ({
     // Create a new team member
     CreateTeamMemberRequest: async (formData) => {
         try {
-            const res = await axios.post(`/api/CreateMember`, formData, {
+            const res = await axios.post(`${URL}CreateMember`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -40,7 +43,7 @@ const TeamStore = create((set) => ({
     // Delete a team member
     DeleteTeamMemberRequest: async (memberID) => {
         try {
-            const res = await axios.get(`/api/DeleteMember/${memberID}`);
+            const res = await axios.get(`${URL}DeleteMember/${memberID}`);
             if (res.data.status === "success") {
                 set((state) => ({
                     TeamList: state.TeamList.filter((member) => member._id !== memberID),

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
-import { toast } from "react-hot-toast";  // Import toast for notifications
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import UserStore from "../store/userStore.js";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();  // Initialize useNavigate
+    const navigate = useNavigate();
     const login = UserStore((state) => state.LoginRequest);
 
     const handleSubmit = async (e) => {
@@ -17,15 +17,15 @@ const Login = () => {
         try {
             const success = await login(email, password);
             if (success) {
-                toast.success("Login successful!");  // Show success toast
-                setEmail("");  // Clear email field
-                setPassword("");  // Clear password field
-                navigate("/dashboard");  // Redirect to dashboard
+                toast.success("Login successful!");
+                setEmail("");
+                setPassword("");
+                navigate("/dashboard");
             } else {
-                toast.error("Invalid email or password. Please try again.");  // Show error toast
+                toast.error("Invalid email or password.");
             }
         } catch (error) {
-            toast.error("An error occurred. Please try again later.");
+            toast.error("An error occurred. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -43,9 +43,7 @@ const Login = () => {
                             <div className="card-body">
                                 <form className="py-4 px-3" onSubmit={handleSubmit}>
                                     <div className="mb-3">
-                                        <label htmlFor="email" className="form-label">
-                                            Email
-                                        </label>
+                                        <label htmlFor="email" className="form-label">Email</label>
                                         <input
                                             type="email"
                                             id="email"
@@ -58,9 +56,7 @@ const Login = () => {
                                         />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="password" className="form-label">
-                                            Password
-                                        </label>
+                                        <label htmlFor="password" className="form-label">Password</label>
                                         <input
                                             type="password"
                                             id="password"

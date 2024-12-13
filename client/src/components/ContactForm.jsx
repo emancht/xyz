@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {toast} from "react-hot-toast";
+const URL = "https://xyz-nu-six.vercel.app/api/";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const ContactForm = () => {
         const toastId = toast.loading('Sending...');
 
         try {
-            const response = await axios.post('/api/SendMessage', formData);
+            const response = await axios.post(`${URL}SendMessage`, formData);
             if (response.data.success) {
                 // Success toast
                 toast.success('Message sent successfully!', { id: toastId });
