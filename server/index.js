@@ -57,7 +57,7 @@ app.get("*", (req, res) => {
 });
 
 /// Start Server
-const PORT = 3003;
-app.listen(PORT, () => {
-    console.log("Server started on port " + PORT);
+
+app.listen(5030, () => {
+    console.log("Server started on port: 5030");
 });

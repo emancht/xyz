@@ -1,16 +1,14 @@
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api/': {
-        target: "https://xyz-nu-six.vercel.app",
-        changeOrigin: true, // Optional: Helps handle CORS issues
-        rewrite: (path) => path.replace(/^\/api/, '') // Optional: Removes '/api' prefix from proxied requests
-      },
-    },
-  },
-});
+  server:{
+    proxy:{
+      '/api/':{
+        target:"http://localhost:5030"
+      }
+    }
+  }
+})
