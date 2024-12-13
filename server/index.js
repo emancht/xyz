@@ -1,22 +1,20 @@
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import router from "./routes/api.js";
 import {
-    DATABASE,
     MAX_JSON_SIZE,
-    PORT,
     REQUEST_NUMBER,
     REQUEST_TIME,
     URL_ENCODE,
     WEB_CACHE,
 } from "./app/config/config.js";
+import router from "./routes/api.js";
 
 /// Resolve __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +37,7 @@ app.use(limiter);
 app.set("etag", WEB_CACHE);
 
 /// Database Connect
+const DATABASE = "mongodb+srv://emancht:4150@bookshop.nlent.mongodb.net/BlogAgency?retryWrites=true&w=majority&appName=BookShop";
 mongoose
     .connect(DATABASE, { autoIndex: true })
     .then(() => {
@@ -58,6 +57,7 @@ app.get("*", (req, res) => {
 });
 
 /// Start Server
+const PORT = 3003;
 app.listen(PORT, () => {
     console.log("Server started on port " + PORT);
 });

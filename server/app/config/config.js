@@ -1,5 +1,4 @@
-export const PORT = 3003;
-export const DATABASE = "mongodb+srv://emancht:4150@bookshop.nlent.mongodb.net/BlogAgency?retryWrites=true&w=majority&appName=BookShop";
+
 export const JWT_KEY = 'ABC12341241234';
 export const JWT_EXPIRE_TIME = '24h';
 
